@@ -1,0 +1,43 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Websocket test</title>
+    
+</head>
+<body>
+<h1>WebSocket test</h1>
+    
+    <script>
+        (function () {
+            var ws = new WebSocket('ws://localhost:50937');
+            ws.addEventListener('open',
+                function (event) {
+                    ws.send('ping!');
+                    console.log('WebSocket opened', event);
+                    console.log('Websocket status (just opened)', ws.readyState);
+                    return true;
+                });
+
+            ws.addEventListener('message',
+                function (event) {
+                    console.log('Message received', event.data);
+                    console.log('Websocket status (msg received)', ws.readyState);
+                    return true;
+                });
+
+            ws.addEventListener('error',
+                function (e) {
+                    console.error('Websocket error', e);
+                });
+
+            ws.addEventListener('close',
+                function (event) {
+                    console.log('WebSocket closed', event);
+                });
+
+            window.ws = ws;
+        })();
+    </script>
+</body>
+</html>
